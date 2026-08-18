@@ -35,8 +35,27 @@ DON'T: Write loose, un-typed variables like Python (e.g., writing `name = "Patri
 DON'T: Expect integer division to automatically retain decimals; integer operands yield an integer result and drop the remainder.
 DON'T: Forget to import the input library (`import java.util.Scanner;`) when building programs that require user input.
 
+---------------------
 
+# 📋 Java Survival Notes — Session 1: Input & the + Trap
 
-```
+## 1. Scanner & the Input Buffer
 
-```
+| Term | Plain-English Meaning |
+| :--- | :--- |
+| **Input Buffer** | The temporary waiting line in memory where typed keystrokes sit after hitting Enter, before Java reads them. |
+| **Token** | A single chunk of typed text Scanner grabs from the buffer (e.g., `40.5`, `forty`). |
+| **Parse** | The act of translating a token from raw text into a real data type (like `double` or `int`). |
+| **nextDouble()** | Grabs the next token only if it can be shaped into a decimal number; refuses anything else. |
+
+### 🚨 Trap: InputMismatchException
+* **What happens:** If the user types non-numeric text (e.g., `"forty"`) where `nextDouble()` expects a number, Java does **not** convert it and does **not** default to `0`.
+* **What Java does instead:** Throws an `InputMismatchException` (a runtime crash error) and halts execution immediately.
+
+```java
+// FAKE assumption (WRONG):
+hoursWorked = console.nextDouble(); // "It'll just become 0 if input is bad"
+
+// REALITY:
+// Program throws InputMismatchException and crashes right there.
+
